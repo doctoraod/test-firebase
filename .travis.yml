@@ -9,6 +9,7 @@ branches:
   - master 
 script: 
 - npm install 
+- cd functions && npm install 
 - npm run build # build project
 install:
   npm install -g firebase-tools 
