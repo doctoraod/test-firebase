@@ -10,9 +10,7 @@ branches:
 script: 
 - npm install 
 - npm run build # build project
-install:
-  npm install -g firebase-tools 
-after_success:
-- firebase use --token ${FIREBASE_TOKEN} 
-- firebase use --add ${PROJECT_ID} 
-- firebase deploy --non-interactive --token "${FIREBASE_TOKEN}" 
+deploy:
+  provider: firebase
+  token:
+    secure: ${FIREBASE_TOKEN}
