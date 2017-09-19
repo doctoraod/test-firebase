@@ -10,7 +10,7 @@ branches:
 script: 
 - npm install 
 - npm run build # build project
-- cd functions && npm install # install functions
+- cd functions && npm install && cd .. # install functions
 deploy:
   provider: firebase
   token:
