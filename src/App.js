@@ -65,6 +65,7 @@ class App extends Component {
       <div className="App">
         <div className="columns">
           <div className="column">
+            <h3 className="title is-3">Todo List</h3>
             <div className="content">
               <ol>
                 {
@@ -76,8 +77,9 @@ class App extends Component {
             </div>
           </div>
           <div className="column">
+            <h3 className="title is-3">Add Todo</h3>
             <div className="field">
-              <label className="label">Name</label>
+              <label className="label">Todo</label>
               <div className="control">
                 <input className="input" type="text" placeholder="Text input" value={this.state.name} onChange={this.handleTextChange}/>
               </div>
@@ -90,8 +92,6 @@ class App extends Component {
                 <button className="button is-link" onClick={this.handleCancel}>Cancel</button>
               </div>
             </div>
-          </div>
-          <div className="column">
           </div>
           <div className="column">
           </div>
