@@ -34,21 +34,11 @@ class App extends Component {
     })
   }
   handleAdd = (value) => {
-    const { todoList } = this.state
     const id = Date.now()
     db.ref(`todoList/${id}`).set({ name: value })
-    this.setState({
-      todoList: [ ...todoList, { id: id, name: value } ],
-      name: ''
-    })
   }
   handleRemove = (id) => {
-    db.ref(`todoList/${id}`).remove() 
-    const { todoList } = this.state
-    const newTodoList = todoList.filter((value) => +value.id !== +id)
-    this.setState({
-      todoList: newTodoList
-    })
+    db.ref(`todoList/${id}`).remove()
   }
   handleTextChange = (element) => {
     this.setState({
