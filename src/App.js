@@ -15,7 +15,7 @@ class App extends Component {
     db.ref('todoList').on('child_added', data => {
       console.log('child_added')
       this.setState({
-        todoList: [ ...this.state.todoList, { id: data.key,  name: data.val().name }]
+        todoList: [ ...this.state.todoList, { id: data.key,  name: data.val().name }],
       })
     })
     db.ref('todoList').on('child_changed', data => {
@@ -33,9 +33,17 @@ class App extends Component {
       })
     })
   }
-  handleAdd = (value) => {
+  handleEnter = (e) => {
+    if (e.keyCode === 13) {
+      // Key Enter
+      this.handleAdd()
+    }
+  }
+  handleAdd = () => {
+    const name = this.state.name
     const id = Date.now()
-    db.ref(`todoList/${id}`).set({ name: value })
+    db.ref(`todoList/${id}`).set({ name })
+    this.setState({ name: '' })
   }
   handleRemove = (id) => {
     db.ref(`todoList/${id}`).remove()
@@ -71,12 +79,12 @@ class App extends Component {
             <div className="field">
               <label className="label">Todo</label>
               <div className="control">
-                <input className="input" type="text" placeholder="Text input" value={this.state.name} onChange={this.handleTextChange}/>
+                <input className="input" type="text" placeholder="Text input" value={this.state.name} onKeyUp={this.handleEnter} onChange={this.handleTextChange}/>
               </div>
             </div>
             <div className="field is-grouped">
               <div className="control">
-                <button className="button is-primary" onClick={() => this.handleAdd(this.state.name)}>Add</button>
+                <button className="button is-primary" onClick={() => this.handleAdd()}>Add</button>
               </div>
               <div className="control">
                 <button className="button is-link" onClick={this.handleCancel}>Cancel</button>
