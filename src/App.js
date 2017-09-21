@@ -13,25 +13,41 @@ class App extends Component {
   }
   componentDidMount = () => {
     db.ref('todoList').on('child_added', data => {
+      console.log('child_added')
       this.setState({
         todoList: [ ...this.state.todoList, { id: data.key,  name: data.val().name }]
+      })
+    })
+    db.ref('todoList').on('child_changed', data => {
+      console.log('child_changed')
+      this.setState({
+        todoList: [ ...this.state.todoList, { id: data.key,  name: data.val().name }]
+      })
+    })
+    db.ref('todoList').on('child_removed', data => {
+      console.log('child_removed', data.key)
+      const { todoList } = this.state
+      const newTodoList = todoList.filter((value) => +value.id !== +data.key)
+      this.setState({
+        todoList: newTodoList
       })
     })
   }
   handleAdd = (value) => {
     const { todoList } = this.state
-    db.ref(`todoList/${Date.now()}`).set({ name: value })
+    const id = Date.now()
+    db.ref(`todoList/${id}`).set({ name: value })
     this.setState({
-      todoList: [ ...todoList, { id: Date.now(), name: value } ],
+      todoList: [ ...todoList, { id: id, name: value } ],
       name: ''
     })
   }
-  handleRemove = (key, id) => {
+  handleRemove = (id) => {
+    db.ref(`todoList/${id}`).remove() 
     const { todoList } = this.state
-    db.ref(`todoList/${id}`).remove()
-    todoList.splice(key, 1)
+    const newTodoList = todoList.filter((value) => +value.id !== +id)
     this.setState({
-      todoList
+      todoList: newTodoList
     })
   }
   handleTextChange = (element) => {
@@ -53,7 +69,7 @@ class App extends Component {
               <ol>
                 {
                   this.state.todoList.map((value, key) => (
-                    <li key={key}>{value.id} {value.name} <button className="button is-small is-danger" onClick={() => this.handleRemove(key, value.id)}>Remove</button></li>
+                    <li key={key}>{value.id} {value.name} <button className="button is-small is-danger" onClick={() => this.handleRemove(value.id)}>Remove</button></li>
                   ))
                 }
               </ol>
