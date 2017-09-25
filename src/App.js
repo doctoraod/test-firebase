@@ -40,17 +40,17 @@ class App extends Component {
     }
   }
   handleAdd = () => {
-    const name = this.state.name
+    const { name, age } = this.state
     const id = Date.now()
-    db.ref(`todoList/${id}`).set({ name })
-    this.setState({ name: '' })
+    db.ref(`todoList/${id}`).set({ name, age: +age })
+    this.setState({ name: '', age: '' })
   }
   handleRemove = (id) => {
     db.ref(`todoList/${id}`).remove()
   }
-  handleTextChange = (element) => {
+  handleTextChange = (element, key) => {
     this.setState({
-      name: element.target.value
+      [key]: element.target.value
     })
   }
   handleCancel = () => {
@@ -68,7 +68,7 @@ class App extends Component {
               <ol>
                 {
                   this.state.todoList.map((value, key) => (
-                    <li key={key}>{value.id} {value.name} <button className="button is-small is-danger" onClick={() => this.handleRemove(value.id)}>Remove</button></li>
+                    <li key={key}>{value.id} {value.name} ({value.age}) <button className="button is-small is-danger" onClick={() => this.handleRemove(value.id)}>Remove</button></li>
                   ))
                 }
               </ol>
@@ -79,7 +79,8 @@ class App extends Component {
             <div className="field">
               <label className="label">Todo</label>
               <div className="control">
-                <input className="input" type="text" placeholder="Text input" value={this.state.name} onKeyUp={this.handleEnter} onChange={this.handleTextChange}/>
+                <input className="input" type="text" placeholder="Text input" value={this.state.name} onKeyUp={this.handleEnter} onChange={(e) => this.handleTextChange(e, 'name')}/>
+                <input className="input" type="text" placeholder="Text input" value={this.state.age} onKeyUp={this.handleEnter} onChange={(e) => this.handleTextChange(e, 'age')}/>
               </div>
             </div>
             <div className="field is-grouped">
