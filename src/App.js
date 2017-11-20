@@ -8,20 +8,29 @@ class App extends Component {
     super()
     this.state = {
       todoList: [],
-      name: ''
+      name: '',
+      age: '',
+      last: ''
     }
   }
   componentDidMount = () => {
+    db.ref('last').on('value', data => {
+      console.log('last - value')
+      this.setState({
+        last: data.val(),
+      })
+    })
     db.ref('todoList').on('child_added', data => {
       console.log('child_added')
+      console.log(data.val())
       this.setState({
-        todoList: [ ...this.state.todoList, { id: data.key,  name: data.val().name }],
+        todoList: [ ...this.state.todoList, { id: data.key, ...data.val() }],
       })
     })
     db.ref('todoList').on('child_changed', data => {
       console.log('child_changed')
       this.setState({
-        todoList: [ ...this.state.todoList, { id: data.key,  name: data.val().name }]
+        todoList: [ ...this.state.todoList, { id: data.key, ...data.val() }],
       })
     })
     db.ref('todoList').on('child_removed', data => {
@@ -42,7 +51,7 @@ class App extends Component {
   handleAdd = () => {
     const { name, age } = this.state
     const id = Date.now()
-    db.ref(`todoList/${id}`).set({ name, age: +age })
+    db.ref(`todoList/${id}`).set({ name, age: (+age || 0) })
     this.setState({ name: '', age: '' })
   }
   handleRemove = (id) => {
@@ -55,7 +64,8 @@ class App extends Component {
   }
   handleCancel = () => {
     this.setState({
-      name: ''
+      name: '',
+      age: ''
     })
   }
   render() {
@@ -75,11 +85,17 @@ class App extends Component {
             </div>
           </div>
           <div className="column">
+            <h3 className="title is-3">{this.state.last}</h3>
             <h3 className="title is-3">Add Todo</h3>
             <div className="field">
               <label className="label">Todo</label>
               <div className="control">
                 <input className="input" type="text" placeholder="Text input" value={this.state.name} onKeyUp={this.handleEnter} onChange={(e) => this.handleTextChange(e, 'name')}/>
+              </div>
+            </div>
+            <div className="field">
+              <label className="label">Age</label>
+              <div className="control">
                 <input className="input" type="text" placeholder="Text input" value={this.state.age} onKeyUp={this.handleEnter} onChange={(e) => this.handleTextChange(e, 'age')}/>
               </div>
             </div>

@@ -1,0 +1,46 @@
+[debug] [2017-11-20T05:25:42.630Z] ----------------------------------------------------------------------
+[debug] [2017-11-20T05:25:42.633Z] Command:       /Users/aod/.nvm/versions/node/v6.11.2/bin/node /usr/local/bin/firebase deploy
+[debug] [2017-11-20T05:25:42.634Z] CLI Version:   3.9.2
+[debug] [2017-11-20T05:25:42.634Z] Platform:      darwin
+[debug] [2017-11-20T05:25:42.634Z] Node Version:  v6.11.2
+[debug] [2017-11-20T05:25:42.634Z] Time:          Mon Nov 20 2017 12:25:42 GMT+0700 (+07)
+[debug] [2017-11-20T05:25:42.635Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-20T05:25:42.648Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-20T05:25:42.649Z] > authorizing via signed-in user
+[debug] [2017-11-20T05:25:42.651Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/aod-test-everything  
+ Mon Nov 20 2017 12:25:42 GMT+0700 (+07)
+[debug] [2017-11-20T05:25:43.962Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-20T05:25:43.964Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/aod-test-everything/tokens  
+ Mon Nov 20 2017 12:25:43 GMT+0700 (+07)
+[debug] [2017-11-20T05:25:45.182Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'aod-test-everything'...
+[info] 
+[info] i  deploying database, functions, hosting
+[info] ✔  database: rules ready to deploy.
+[debug] [2017-11-20T05:25:47.419Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "dependencies": {
+    "firebase-admin": "~5.2.1",
+    "firebase-functions": "^0.6.2",
+    "request": "^2.82.0",
+    "request-promise": "^4.2.1"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[info] i  runtimeconfig: ensuring necessary APIs are enabled...
+[debug] [2017-11-20T05:25:47.421Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/aod-test-everything?view=CONSUMER_VIEW  
+ Mon Nov 20 2017 12:25:47 GMT+0700 (+07)
+[debug] [2017-11-20T05:25:47.422Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/aod-test-everything?view=CONSUMER_VIEW  
+ Mon Nov 20 2017 12:25:47 GMT+0700 (+07)
+[debug] [2017-11-20T05:25:49.892Z] <<< HTTP RESPONSE 200
+[info] ✔  runtimeconfig: all necessary APIs are enabled
+[debug] [2017-11-20T05:25:50.195Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2017-11-20T05:25:50.198Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/aod-test-everything  
+ Mon Nov 20 2017 12:25:50 GMT+0700 (+07)
+[debug] [2017-11-20T05:25:50.199Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/aod-test-everything/apiKeys  
+ Mon Nov 20 2017 12:25:50 GMT+0700 (+07)
